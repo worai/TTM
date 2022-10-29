@@ -1,0 +1,14 @@
+ - saving system for NOT all, but most bits
+ - director
+  -- tension
+ - enemy and creature behaviours
+  -- raging
+  o- crab
+   o-- chase player and adjust position
+  -- ninja
+   o-- design
+   --- behaviours
+
+BEFORE REFACTORING, REMOVAL AND/OR CLEANUP
+
+ - source control
