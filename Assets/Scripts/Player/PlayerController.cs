@@ -25,12 +25,14 @@ public class PlayerController : MonoBehaviour
   private float currentVertSpeed = 0f;
   private bool touchesGround = true;
 
+  private const string FALLING_ANIMATION = "PlayerFalling";
+
   PlayerMovementInput pmi;
 
   private Vector3 _velocity;
   public Vector3 Velocity { get => _velocity; }
   public bool Falling { get; internal set; }
-  public bool Precarious { get; private set; }
+  public bool Precarious { get; set; }
   public bool Bracing { get; private set; }
 
   private void Start()
@@ -51,7 +53,38 @@ public class PlayerController : MonoBehaviour
 
     HandleJumping();
 
+    HandlePrecariousAnimationState();
+
   }
+
+  private void HandlePrecariousAnimationState()
+  {
+    if (Precarious)
+      animator.SetBool("Precarious", true);
+    else
+      animator.SetBool("Precarious", false);
+  }
+
+  /// <summary>
+  /// Initialises a coroutine for falling 
+  /// </summary>
+  internal void Fall()
+  {
+    if (!runningFallingCoroutine) StartCoroutine(FallingCoroutine());
+  }
+
+
+  bool runningFallingCoroutine = false;
+  private IEnumerator FallingCoroutine()
+  {
+    runningFallingCoroutine = true;
+    animator.Play(FALLING_ANIMATION);
+    float waitTime = animator.GetCurrentAnimatorStateInfo(0).length;
+    yield return new WaitForSeconds(waitTime);
+
+    runningFallingCoroutine = false;
+  }
+
 
   private void HandleBracingAnimator()
   {
@@ -75,6 +108,8 @@ public class PlayerController : MonoBehaviour
 
   private void HandleMovement()
   {
+    float _speed = speed * (Precarious && currentJumpHeight < 0.1f ? 0.5f : 1f);
+
     if(!Bracing)
     {
       Vector3 velocity = new Vector3(
@@ -86,7 +121,7 @@ public class PlayerController : MonoBehaviour
       animator.SetFloat("Speed", velocity.magnitude);
       Vector2 fakeNormal = FakeNormalise(new Vector2(velocity.x, velocity.y));
       velocity = new Vector3(fakeNormal.x, fakeNormal.y);
-      _velocity = velocity * speed;
+      _velocity = velocity * _speed;
     }
     else
     {

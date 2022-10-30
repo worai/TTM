@@ -81,6 +81,7 @@ public class CreatureController : ACreatureMono
       Debug.LogError("Could not update state! object name: " + gameObject.name);
     UpdatePosition(); 
     UpdateAttack();
+
   }
 
   private void UpdateAttack()
@@ -186,7 +187,6 @@ public class CreatureController : ACreatureMono
 
     return true;
   }
-
 
 
 }
