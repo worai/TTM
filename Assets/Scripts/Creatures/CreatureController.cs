@@ -8,6 +8,10 @@ using UnityEngine.Events;
 [System.Serializable]
 public class AttackAttemptFloatEvent : UnityEvent<float> { }
 
+/// <summary>
+/// Should rename this to Zombie controller, me thinkgs... 
+/// or split this up so that more bits can be shared between this and other guys
+/// </summary>
 public class CreatureController : ACreatureMono
 {
 
