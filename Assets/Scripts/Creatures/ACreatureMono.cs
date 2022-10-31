@@ -21,6 +21,7 @@ public abstract class ACreatureMono : MonoBehaviour
     Idle = 0,
     Pursuing = 1,
     Attacking,
-    Raging
+    Raging,
+    Ready
   }
 }

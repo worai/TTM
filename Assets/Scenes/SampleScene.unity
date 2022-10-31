@@ -1149,6 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75ed12040e76a44e805052bd40234e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnAnimation: {fileID: 7400000, guid: b2fef852c2fb04a448a20b29d0a6c047, type: 2}
   collider: {fileID: 210900002}
   data: {fileID: 210900004}
   myAnimator: {fileID: 2020474885}
@@ -8614,7 +8615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358389121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.5, y: -6.5, z: 0}
+  m_LocalPosition: {x: -4.5, y: -8.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1797931978}
@@ -8661,6 +8662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f75ed12040e76a44e805052bd40234e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnAnimation: {fileID: 7400000, guid: c9617bfff4cc174488a4775c1f8fd37d, type: 2}
   collider: {fileID: 1358389123}
   data: {fileID: 1358389125}
   myAnimator: {fileID: 1797931979}
@@ -8703,6 +8705,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e139dedccc50c9445b3cd535cd19b44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abstractFloat: 0
+  data: {fileID: 1358389125}
+  animator: {fileID: 1797931979}
+  attackRange: 1
+  moveSpeed: 2
+  attackWindUp: 1
+  attackWindDown: 0.533
+  minDamage: 10
+  maxDamage: 25
 --- !u!1 &1360071795
 GameObject:
   m_ObjectHideFlags: 0
