@@ -123,7 +123,7 @@ public class CreatureController : ACreatureMono
         Debug.Log(data.gameObject.name + " HP: " + data.CurrentHP);
       }
     }
-    catch (Exception e)
+    catch (Exception)
     {
       //probably needs no handling...
       //Debug.Log("")
@@ -152,7 +152,7 @@ public class CreatureController : ACreatureMono
         Debug.Log(data.gameObject.name + " HP: " + data.CurrentHP); 
       }
     }
-    catch(Exception e)
+    catch(Exception)
     {
       //probably needs no handling...
       //Debug.Log("")

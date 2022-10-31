@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
   [Tooltip("Amount of decay per cell in y direction")]
   [SerializeField] private float decayGradient = 10f;
 
-  [SerializeField] private bool showMessages = false;
+
   [Tooltip("Can be used for debugging map elements and such")]
   [SerializeField] private bool deactivateTemplates = true;
 

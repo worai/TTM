@@ -6,7 +6,7 @@ public class CreatureAutoSpawner : MonoBehaviour
 {
   [SerializeField] private AnimationClip spawnAnimation;
   [Space(10)]
-  [SerializeField] private BoxCollider2D collider;
+  [SerializeField] private new BoxCollider2D collider;
   [SerializeField] private CreatureData data;
   [SerializeField] private Animator myAnimator;
   [SerializeField] private SpriteRenderer myRenderer;

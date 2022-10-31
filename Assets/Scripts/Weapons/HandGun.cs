@@ -62,7 +62,7 @@ public class HandGun : AWeapon1, IWeapon
 
   public void MakeEffect()
   {
-    if (hit == null || hit.transform == null) 
+    if (!hit || hit.transform == null) 
       return;
     else
     {
