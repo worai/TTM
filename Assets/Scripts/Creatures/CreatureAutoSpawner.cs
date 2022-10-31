@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CreatureAutoSpawner : MonoBehaviour
 {
+  [SerializeField] private AnimationClip spawnAnimation;
+  [Space(10)]
   [SerializeField] private BoxCollider2D collider;
   [SerializeField] private CreatureData data;
   [SerializeField] private Animator myAnimator;
@@ -39,13 +41,13 @@ public class CreatureAutoSpawner : MonoBehaviour
 
   private void Update()
   {
-    string _name = "EnemyCrabSpawn";
+    string _name =  spawnAnimation.name;
     if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName(_name))
     {
       if(showMessages) Debug.Log(_name + " spawning, " + myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
       if (myAnimator.GetCurrentAnimatorStateInfo(0).IsName(_name ))
-      {
+      { 
         if (myAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f) 
         {
           alreadySpawned = true;
