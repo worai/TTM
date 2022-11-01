@@ -290,6 +290,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: HitPlayer
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Spawning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7012413924070621913}
   m_Solo: 0
@@ -560,6 +563,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: HitPlayer
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Spawning
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6633883090892109299}
