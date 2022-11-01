@@ -57,6 +57,22 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Balance"",
+                    ""type"": ""Button"",
+                    ""id"": ""c7d06703-a5b1-433f-af61-caedc35ea7fe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6144097-ae02-47d7-8c76-19490650fd36"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -158,6 +174,28 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
                     ""action"": ""Brace"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f57861d-0491-4c4e-959b-46e52ad892fd"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Balance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27a74aa9-72d7-45b3-9dbd-88778cc1bc25"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -171,6 +209,8 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Brace = m_Player.FindAction("Brace", throwIfNotFound: true);
+        m_Player_Balance = m_Player.FindAction("Balance", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -225,6 +265,8 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Brace;
+    private readonly InputAction m_Player_Balance;
+    private readonly InputAction m_Player_Dash;
     public struct PlayerActions
     {
         private @PlayerMovementInput m_Wrapper;
@@ -234,6 +276,8 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Brace => m_Wrapper.m_Player_Brace;
+        public InputAction @Balance => m_Wrapper.m_Player_Balance;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +302,12 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
                 @Brace.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrace;
                 @Brace.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrace;
                 @Brace.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrace;
+                @Balance.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBalance;
+                @Balance.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBalance;
+                @Balance.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBalance;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -277,6 +327,12 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
                 @Brace.started += instance.OnBrace;
                 @Brace.performed += instance.OnBrace;
                 @Brace.canceled += instance.OnBrace;
+                @Balance.started += instance.OnBalance;
+                @Balance.performed += instance.OnBalance;
+                @Balance.canceled += instance.OnBalance;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
             }
         }
     }
@@ -288,5 +344,7 @@ public class @PlayerMovementInput : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnBrace(InputAction.CallbackContext context);
+        void OnBalance(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

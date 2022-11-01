@@ -41,8 +41,9 @@ public class PlayerController : MonoBehaviour
     pmi.Enable();
     pmi.Player.Brace.started += Brace_started;
     pmi.Player.Brace.canceled += Brace_canceled;
+    pmi.Player.Balance.started += Balance_started;
+    pmi.Player.Balance.canceled += Balance_canceled;
   }
-
 
   private void FixedUpdate()
   {
@@ -103,6 +104,17 @@ public class PlayerController : MonoBehaviour
   private void Brace_canceled(InputAction.CallbackContext obj)
   {
     Bracing = false;
+  }
+
+
+  private void Balance_started(InputAction.CallbackContext context)
+  {
+    animator.SetBool("Balancing", true);
+  }
+
+  private void Balance_canceled(InputAction.CallbackContext obj)
+  {
+    animator.SetBool("Balancing", false);
   }
 
 

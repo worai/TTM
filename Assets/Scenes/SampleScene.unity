@@ -2394,7 +2394,6 @@ MonoBehaviour:
   mapCols: 5
   mapRows: 10
   decayGradient: 10
-  showMessages: 0
   deactivateTemplates: 0
   facBuilder: {fileID: 413469560}
   accBuilder: {fileID: 210200308}
@@ -8714,6 +8713,7 @@ MonoBehaviour:
   attackWindDown: 0.533
   minDamage: 10
   maxDamage: 25
+  currentReadyRunPeriod: 2
 --- !u!1 &1360071795
 GameObject:
   m_ObjectHideFlags: 0
@@ -8924,6 +8924,7 @@ GameObject:
   - component: {fileID: 1387962638}
   - component: {fileID: 1387962641}
   - component: {fileID: 1387962642}
+  - component: {fileID: 1387962643}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -9070,6 +9071,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1387962643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387962637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f049bdb008dfa43b925744b1f03ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1391064014
 GameObject:
   m_ObjectHideFlags: 0
