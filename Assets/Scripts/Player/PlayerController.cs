@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
   private Vector3 _velocity;
   public Vector3 Velocity { get => _velocity; }
-  public bool Falling { get; internal set; }
+  public bool Falling { get; private set; }
   public bool Precarious { get; set; }
   public bool Bracing { get; private set; }
   public bool Balancing { get; private set; }
@@ -72,10 +72,11 @@ public class PlayerController : MonoBehaviour
   }
 
   /// <summary>
-  /// Initialises a coroutine for falling 
+  /// Initialises a coroutine for falling, handling all logic and animation internally
   /// </summary>
   internal void Fall()
   {
+    Falling = true;
     if (!runningFallingCoroutine) StartCoroutine(FallingCoroutine());
   }
 

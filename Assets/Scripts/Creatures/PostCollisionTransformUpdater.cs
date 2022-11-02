@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// - parent w/
+/// TODO remove
 /// </summary>
 [Obsolete("Not needed")]
 public class PostCollisionTransformUpdater : MonoBehaviour
