@@ -14,12 +14,15 @@ public class PlayerController : MonoBehaviour
 
   [Tooltip("2 (Can' jump very far at all with just 2. Maybe better use a value of 3?")]
   [SerializeField] private float initJumpSpeed = 2f;
-
   [Tooltip("Might wanna start off as 3")]
   [SerializeField] private float speed = 5f;
+  [Space(10)]
   [SerializeField] private Animator animator;
   [SerializeField] private SpriteRenderer myRenderer;
   [SerializeField] private GameObject spriteGraphicGO;
+
+
+  private CreatureData data;
 
   private float currentJumpHeight = 0f;
   private float currentVertSpeed = 0f;
@@ -34,9 +37,11 @@ public class PlayerController : MonoBehaviour
   public bool Falling { get; internal set; }
   public bool Precarious { get; set; }
   public bool Bracing { get; private set; }
+  public bool Balancing { get; private set; }
 
   private void Start()
   {
+    data = GetComponent<CreatureData>();
     pmi = new PlayerMovementInput();
     pmi.Enable();
     pmi.Player.Brace.started += Brace_started;
@@ -48,9 +53,9 @@ public class PlayerController : MonoBehaviour
   private void FixedUpdate()
   {
     //TODO check if dead
-    HandleBracingAnimator();
-
     HandleMovement();
+
+    HandleBracingAnimator();
 
     HandleJumping();
 
@@ -60,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
   private void HandlePrecariousAnimationState()
   {
-    if (Precarious)
+    if (Precarious && currentJumpHeight < 0.1f)
       animator.SetBool("Precarious", true);
     else
       animator.SetBool("Precarious", false);
@@ -79,6 +84,7 @@ public class PlayerController : MonoBehaviour
   private IEnumerator FallingCoroutine()
   {
     runningFallingCoroutine = true;
+    Falling = true;
     animator.Play(FALLING_ANIMATION);
     float waitTime = animator.GetCurrentAnimatorStateInfo(0).length;
     yield return new WaitForSeconds(waitTime);
@@ -109,18 +115,21 @@ public class PlayerController : MonoBehaviour
 
   private void Balance_started(InputAction.CallbackContext context)
   {
+    Balancing = true;
     animator.SetBool("Balancing", true);
   }
 
   private void Balance_canceled(InputAction.CallbackContext obj)
   {
+    Balancing = false;
     animator.SetBool("Balancing", false);
   }
 
 
   private void HandleMovement()
   {
-    float _speed = speed * (Precarious && currentJumpHeight < 0.1f ? 0.5f : 1f);
+    if (data.IsDead || Falling) return;
+    float _speed = speed * (!Balancing && Precarious && currentJumpHeight < 0.1f ? 0.2f : 1f);
 
     if(!Bracing)
     {
