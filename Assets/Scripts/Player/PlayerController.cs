@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
     yield return new WaitForSeconds(waitTime);
 
     runningFallingCoroutine = false;
+    SceneLoader.Load(SceneLoader.Scene.TransitionScene);
   }
 
 
