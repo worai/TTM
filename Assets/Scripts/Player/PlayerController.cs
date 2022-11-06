@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
   internal void Fall()
   {
     Falling = true;
+    LevelInfos.Fell = true;
     if (!runningFallingCoroutine) StartCoroutine(FallingCoroutine());
   }
 

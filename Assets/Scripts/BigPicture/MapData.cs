@@ -12,18 +12,21 @@ namespace Assets.Scripts.BigPicture
   {
     //map node rows
     NodeRowData[] rows;
+    int level;
 
-    public MapData(int numCols, int numRows)
+    public MapData(int numCols, int numRows, int? currentLevel)
     {
       rows = new NodeRowData[numRows];
       for (int i = 0; i < numRows; i++)
       {
         rows[i] = new NodeRowData(numCols);
       }
+      level = currentLevel.HasValue ? currentLevel.Value : 1;
     }
 
-    public int NumCols { get => rows[0].NumCols; }
-    public int NumRows { get => rows.Length; }
+    public int NumCols => rows[0].NumCols;
+    public int NumRows => rows.Length;
+    public int Level => level;
   }
 
   [Serializable]

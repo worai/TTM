@@ -23,7 +23,12 @@ public class Transition1to2 : MonoBehaviour
     yield return StartCoroutine(FadeIn());
     yield return StartCoroutine(Animate());
     yield return StartCoroutine(FadeOut()); //needed, not just nice to have
-    //SceneLoader.Load(SceneLoader.Scene.) //TODO well, some other scene needs to be loaded
+    if (LevelInfos.Level.HasValue)
+      LevelInfos.Level++;
+    else
+      LevelInfos.Level = 2;
+
+    SceneLoader.Load(SceneLoader.Scene.SampleScene); //TODO well, some other scene needs to be loaded
   }
 
   private IEnumerator FadeIn()

@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-  public Button button;
-
-
   public void StartButton()
   {
     SceneLoader.Load(SceneLoader.Scene.TransitionScene);
+    LevelInfos.Level = 1;
   }
 
-
-
+  //OptionsButton is handled directly in the button's event handler.
 
   public void ExitToDesktopButton()
   {
     Debug.Log("Exiting to desktop");
+#if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+#else
     Application.Quit();
+#endif
   }
 
 }

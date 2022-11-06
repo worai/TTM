@@ -9,7 +9,7 @@ public static class SceneLoader
   public enum Scene
   {
     TransitionScene,
-
+    SampleScene,
   }
 
   public static void Load(Scene scene)

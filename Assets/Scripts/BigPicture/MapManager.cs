@@ -57,7 +57,20 @@ public class MapManager : MonoBehaviour
     //if (showMessages) Debug.Log("renderer size: " + myRenderer.size.x);
     //mapElementSideSize = 10f; //F it!
 
-    mapData = new MapData(2,2);
+    mapData = new MapData(numCols: mapCols, numRows: mapRows, currentLevel: LevelInfos.Level);
+
+    if(LevelInfos.Level.HasValue)
+    {
+      if (LevelInfos.Level.Value == 1)
+        GenerateAcc();
+      else if (LevelInfos.Level.Value == 2)
+        GenerateFac();
+      else if (LevelInfos.Level.Value == 3)
+        GenerateHgh();
+      //else if (LevelInfos.Level.Value == 4)
+      //  GenerateDes(); //TODO map for desolation, w lotsa rubbles and such.
+    }
+
     if (GenerateLevel == LevelEnum.Accomodations)
       GenerateAcc();
     else if (GenerateLevel == LevelEnum.Factory)
