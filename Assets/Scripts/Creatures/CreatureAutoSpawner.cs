@@ -30,7 +30,7 @@ public class CreatureAutoSpawner : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if(collision.gameObject.TryGetComponent(out PlayerController _))
+    if(collision.transform.parent.gameObject.TryGetComponent(out PlayerController _))
     {
       myRenderer.gameObject.SetActive(true);
       spawnInitiated = true;

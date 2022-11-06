@@ -45,6 +45,7 @@ public class NinjaController : ACreatureMono
   private void Start()
   {
     _currentReadyRunPeriod = currentReadyRunPeriod;
+    playerGo = GameObject.FindGameObjectWithTag("Player");
   }
 
 
@@ -82,28 +83,30 @@ public class NinjaController : ACreatureMono
     animator.SetBool("Attack", false);
   }
 
-  private bool runningReadyCoroutine = false;
+  private bool _runningReadyCoroutine = false;
   private IEnumerator ReadyCoroutine()
   {
-    runningReadyCoroutine = true;
+    _runningReadyCoroutine = true;
     animator.SetBool("Ready", true);
     yield return new WaitForSeconds(currentReadyRunPeriod);
     animator.SetBool("Ready", false);
-    runningReadyCoroutine = false;
+    _runningReadyCoroutine = false;
   }
 
 
   private bool UpdateState()
   {
     if (playerGo == null) return false;
+    if (playerGo != null && CurrentState == CreatureActionState.Idle) CurrentState = CreatureActionState.Ready;
     if (_runningAttackCoroutine || (CurrentState == CreatureActionState.Ready && CanAttack))
     {
       StartCoroutine(AttackCoroutine());
       CurrentState = CreatureActionState.Attacking;
     }
-    else if (runningReadyCoroutine)
+    else if (_runningReadyCoroutine || CurrentState == CreatureActionState.Ready)
     {
-      StartCoroutine(ReadyCoroutine());
+      if(!_runningReadyCoroutine)
+        StartCoroutine(ReadyCoroutine());
       CurrentState = CreatureActionState.Ready;
     }
     return true;
