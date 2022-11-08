@@ -13,6 +13,11 @@ public class MainMenu : MonoBehaviour
 
   //OptionsButton is handled directly in the button's event handler.
 
+  public void LoadGameButton()
+  {
+    Debug.Log("Load game");
+  }
+
   public void ExitToDesktopButton()
   {
     Debug.Log("Exiting to desktop");
