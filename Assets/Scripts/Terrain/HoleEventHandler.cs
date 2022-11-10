@@ -7,18 +7,30 @@ public class HoleEventHandler : MonoBehaviour
   //TODO should this be a global setting perhaps??
   [SerializeField] private float precariousTimeLimit = 2f;
 
+  private PlayerController controller;
+  private bool _inTriggerArea;
+
+
+  private void Start()
+  {
+    controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    controller.onStartedBalancing.AddListener(ResetFallTimer);
+    controller.onStoppedBalancing.AddListener(RestartFallTimer);
+  }
+
+
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    Debug.Log("Collision name in hole: " + collision.name);
+    Debug.Log("Collision in hole: " + collision.name);
     HandlePlayerFallingDetectorEnteringHole(collision);
     HandlePrecariousStateEnteringHole(collision);
-
+    _inTriggerArea = true;
   }
 
   private void OnTriggerExit2D(Collider2D collision)
   {
-
-    HandleFallingDetectorLeavingHoleQuestionmark(collision);
+    Debug.Log("Collision that left hole: " + collision.name);
+    _inTriggerArea = false;
     HandleEndOfPrecariousState(collision);
   }
 
@@ -63,22 +75,6 @@ public class HoleEventHandler : MonoBehaviour
 
 
   /// <summary>
-  /// //TODO remove
-  /// isn't this guy superfluous?
-  /// </summary>
-  /// <param name="collision"></param>
-  [System.Obsolete("Not needed, surely!")]
-  private void HandleFallingDetectorLeavingHoleQuestionmark(Collider2D collision)
-  {
-    PlayerController controller = GetControllerInParentOrNull(collision);
-    if (collision.tag == "FallingDetector")
-    {
-      Debug.Log("Player detector out of hole");
-      //controller.Falling = false;
-    }
-  }
-
-  /// <summary>
   /// TODO make other things capable of falling?
   /// </summary>
   /// <param name=""></param>
@@ -88,11 +84,13 @@ public class HoleEventHandler : MonoBehaviour
 
   private IEnumerator FallTimer(PlayerController controller, float timeGiven)
   {
+    Debug.Log("FallTimer started");
     runningFallTimer = true;
     yield return new WaitForSeconds(timeGiven);
     //controller.Falling = true;
     controller.Fall();
     runningFallTimer = false;
+    Debug.Log("FallTimer Started");
   }
 
   private  void HandlePrecariousStateEnteringHole(Collider2D collision)
@@ -120,6 +118,23 @@ public class HoleEventHandler : MonoBehaviour
       Debug.Log("End of precarious state from hole");
       StopCoroutine(FallTimerCoroutine);
       controller.Precarious = false;
+    }
+  }
+
+
+  private void ResetFallTimer()
+  {
+    if (FallTimerCoroutine == null) return;
+    StopCoroutine(FallTimerCoroutine);
+  }
+
+  private void RestartFallTimer()
+  {
+    if (!_inTriggerArea) 
+      return;
+    else
+    {
+      FallTimerCoroutine = FallTimer(controller, precariousTimeLimit);
     }
   }
 

@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
   [SerializeField] private bool printMessages = false;
-
 
   [Tooltip("-10")]
   [SerializeField] private float gravity = -10f;
@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private SpriteRenderer myRenderer;
   [SerializeField] private GameObject spriteGraphicGO;
 
+  
+  [HideInInspector] public UnityEvent onStartedBalancing;
+  [HideInInspector] public UnityEvent onStoppedBalancing;
 
   private CreatureData data;
 
@@ -36,6 +39,8 @@ public class PlayerController : MonoBehaviour
   public Vector3 Velocity { get => _velocity; }
   public bool Falling { get; private set; }
   public bool Precarious { get; set; }
+  [System.Obsolete("I think this might be superfluous")]
+  public bool CantBePrecarious { get; private set; }
   public bool Bracing { get; private set; }
   public bool Balancing { get; private set; }
 
@@ -119,12 +124,14 @@ public class PlayerController : MonoBehaviour
   private void Balance_started(InputAction.CallbackContext context)
   {
     Balancing = true;
+    onStartedBalancing?.Invoke();
     animator.SetBool("Balancing", true);
   }
 
   private void Balance_canceled(InputAction.CallbackContext obj)
   {
     Balancing = false;
+    onStoppedBalancing?.Invoke();
     animator.SetBool("Balancing", false);
   }
 
