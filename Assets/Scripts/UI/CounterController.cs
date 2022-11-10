@@ -42,7 +42,6 @@ public class CounterController : MonoBehaviour
     newGo.SetActive(true);
     newGo.transform.SetParent(transform);
 
-    //Rect rect = newGo.GetComponent<Rect>(); REMOVE
     RectTransform rectTrans = newGo.GetComponent<RectTransform>();
     Vector2 newPos = new Vector2(-rectTrans.sizeDelta.x/2 * digitPosition, 0);
     rectTrans.anchoredPosition = newPos;
