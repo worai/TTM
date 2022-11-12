@@ -23,7 +23,12 @@ public class WeaponProvider : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if(collision.TryGetComponent(out PlayerController controller))
+    string[] maskNames = { "EventDetector" };
+    LayerMask mask = LayerMask.GetMask(maskNames);
+    int collisionObjectLayer = 1 << collision.gameObject.layer; 
+    //if(collision.TryGetComponent(out PlayerController controller))
+
+    if (collisionObjectLayer == mask)
     {
       Debug.Log($"player should notice provider of {weapon}");
       playerInTrigger = true;
@@ -46,7 +51,12 @@ public class WeaponProvider : MonoBehaviour
 
   private void OnTriggerExit2D(Collider2D collision)
   {
-    if (collision.TryGetComponent(out PlayerController controller))
+    string[] maskNames = { "EventDetector" };
+    LayerMask mask = LayerMask.GetMask(maskNames);
+    int collisionObjectLayer = 1 << collision.gameObject.layer;
+    //if (collision.TryGetComponent(out PlayerController controller))
+
+    if (collisionObjectLayer == mask)
     {
       playerInTrigger = false;
       Debug.Log("Player exited area.");
