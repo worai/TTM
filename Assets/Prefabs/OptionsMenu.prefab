@@ -2589,7 +2589,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8895113853415257474}
         m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
-        m_MethodName: SetSCreenSize
+        m_MethodName: SetScreenSize
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

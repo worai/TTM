@@ -26,7 +26,7 @@ public class OptionsMenu : MonoBehaviour
     mainMixer.SetFloat("UserEffectsVolume", value);
   }
 
-  public void SetSCreenSize (int index)
+  public void SetScreenSize (int index)
   {
     bool fullscreen = false;// Screen.fullScreen; //Don't care right now
     int width = widths[index];

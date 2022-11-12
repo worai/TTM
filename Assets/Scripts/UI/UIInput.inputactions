@@ -1,0 +1,33 @@
+{
+    "name": "UIInput",
+    "maps": [
+        {
+            "name": "User",
+            "id": "cfcd6365-e68f-4906-8111-2a89441badab",
+            "actions": [
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "0ff9c8e8-23a9-4a81-83bc-509ee04f4c84",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2192b162-ae97-4794-8aec-cae1309ab605",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

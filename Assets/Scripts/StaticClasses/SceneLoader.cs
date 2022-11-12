@@ -12,6 +12,7 @@ public static class SceneLoader
     SampleScene,
   }
 
+  // TODO set scene infos in here?
   public static void Load(Scene scene)
   {
     SceneManager.LoadScene(scene.ToString());

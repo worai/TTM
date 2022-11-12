@@ -7,7 +7,11 @@ public class MainMenu : MonoBehaviour
 {
   public void StartButton()
   {
-    SceneLoader.Load(SceneLoader.Scene.TransitionScene);
+    // TODO transition scene from start menu to the beginning of the game
+    //SceneLoader.Load(SceneLoader.Scene.TransitionScene);
+    //LevelInfos.Level = 1;
+
+    SceneLoader.Load(SceneLoader.Scene.SampleScene);
     LevelInfos.Level = 1;
   }
 
