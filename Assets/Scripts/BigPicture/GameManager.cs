@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     if (lastSpawnTime + currentSpawnPeriod < Time.time)
     {
       //New position
-      Vector3 randDirection = Poets.MathUtility.Utility.GetRandomDirection();
+      Vector3 randDirection = Utility.GetRandomDirection();
       if (playerGO.GetComponent<PlayerController>().Velocity.y >= 0f && randDirection.y < 0f)
         randDirection = new Vector3(randDirection.x, Mathf.Abs(randDirection.y));
       if (playerGO.GetComponent<PlayerController>().Velocity.y < 0f && randDirection.y > 0f)

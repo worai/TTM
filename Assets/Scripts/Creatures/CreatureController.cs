@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Poets.MathUtility;
+//using Poets.MathUtility;
 using UnityEngine.Events;
 
 [System.Serializable]
@@ -194,3 +194,7 @@ public class CreatureController : ACreatureMono
 
 
 }
+
+//internal class Utility
+//{
+//}

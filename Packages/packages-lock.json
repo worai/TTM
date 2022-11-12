@@ -7,12 +7,6 @@
       "dependencies": {},
       "hash": "18fd7c1b9295d3afb802531824d3bfaa1b1ad885"
     },
-    "com.poets.math-utility": {
-      "version": "file:C:/Users/stoma/Documents/UnityProjects/TTA/Packages/math-utility",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "5.0.4",
       "depth": 0,
