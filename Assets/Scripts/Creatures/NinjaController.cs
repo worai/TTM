@@ -8,8 +8,11 @@ public class NinjaController : ACreatureMono
 {
 
   #region fields
+  [SerializeField] private bool verbose = false;
+  [Space(10)]
   [SerializeField] private CreatureData data;
   [SerializeField] private Animator animator;
+  [SerializeField] private SpriteRenderer myRenderer;
   [Space(10)]
   [SerializeField] private float attackRange = 1f;
   [SerializeField] private float moveSpeed = 2f;
@@ -21,8 +24,18 @@ public class NinjaController : ACreatureMono
   [SerializeField] private float maxDamage = 25f;
   [Space(10)]
   [Tooltip("only used the first time the ready animation is run")] [SerializeField] private float currentReadyRunPeriod = 2f;
-
   private float _currentReadyRunPeriod;
+  [Space(10)]
+  [SerializeField] private GameObject spriteGraphicGO;
+  [SerializeField] private float jumpSpeed = 10f;
+  [SerializeField] private float maxJumpDistance = 6f;
+
+  private float gravity = -10f;
+  private float currentJumpHeight = 0f;
+  private float currentVertSpeed = 0f;
+  private float instantaneousSeparation = 10f;
+  private Vector3 currentHorzVelocity;
+  private bool touchesGround = true;
   #endregion
 
   #region properties
@@ -44,13 +57,14 @@ public class NinjaController : ACreatureMono
 
   private void Start()
   {
+    gravity = GlobalSettings.Instance.Gravity;
     _currentReadyRunPeriod = currentReadyRunPeriod;
     playerGo = GameObject.FindGameObjectWithTag("Player");
   }
 
 
 
-  private void Update()
+  private void FixedUpdate()
   {
     if (data.IsDead) return;
     if (playerGo == null) playerGo = GameObject.FindGameObjectWithTag("Player");
@@ -58,11 +72,13 @@ public class NinjaController : ACreatureMono
 
     if (!UpdateState())
     {
-      //nothing to report, just don't care, and let the dude idle around or something.
+      // ??
     }
-    //UpdatePosition();
-    //UpdateAttack();
 
+    if (CurrentState == CreatureActionState.Idle)
+      animator.SetBool("Idle", true);
+
+    UpdateLookingDirection();
   }
 
   internal void Respawn()
@@ -81,6 +97,7 @@ public class NinjaController : ACreatureMono
     yield return new WaitForSeconds(waitTime);
     _runningAttackCoroutine = false;
     animator.SetBool("Attack", false);
+    CurrentState = CreatureActionState.Ready;
   }
 
   private bool _runningReadyCoroutine = false;
@@ -90,7 +107,76 @@ public class NinjaController : ACreatureMono
     animator.SetBool("Ready", true);
     yield return new WaitForSeconds(currentReadyRunPeriod);
     animator.SetBool("Ready", false);
+    CurrentState = CreatureActionState.Pursuing;
     _runningReadyCoroutine = false;
+  }
+
+  private bool _runningJumpCoroutine = false;
+  /// <summary>
+  /// This basically tries to jump closer to player for an attack
+  /// </summary>
+  /// <returns></returns>
+  private IEnumerator JumpCoroutine()
+  {
+    _runningReadyCoroutine = true;
+    //Vector3 final = 
+    float jumpSpeed = this.jumpSpeed;
+    bool canAttack = TryFindPositionCloserToPlayer(max: maxJumpDistance, out Vector3 jumpDestination);
+    float jumpDistance = (jumpDestination - transform.position).magnitude;
+    currentVertSpeed = Utility.InitialJumpSpeed(jumpDistance, gravity, jumpSpeed);
+    currentHorzVelocity = (jumpDestination - transform.position).normalized * jumpSpeed;
+    while (currentVertSpeed > 0f ? true : currentJumpHeight != 0f)
+    {
+      HandleJumping();
+      //yield return new WaitForEndOfFrame();
+      yield return new WaitForSeconds(Time.deltaTime);
+    }
+
+    animator.SetFloat("Height", currentJumpHeight);
+    CurrentState = CreatureActionState.Ready;
+    _runningReadyCoroutine = false;
+  }
+
+  private bool TryFindPositionCloserToPlayer(float max, out Vector3 jumpDestination)
+  {
+    if (Utility.IsLessThanSeparation(transform.position, playerGo.transform.position, max))
+    {
+      jumpDestination = playerGo.transform.position;
+    }
+    else
+    {
+      float distance = (transform.position - playerGo.transform.position).magnitude;
+      instantaneousSeparation = distance;
+      jumpDestination = Mathf.Lerp(0, distance, max) * playerGo.transform.position + transform.position;
+    }
+    return true;
+  }
+
+  private void HandleJumping()
+  {
+    transform.position = transform.position + currentHorzVelocity * Time.deltaTime; 
+    if (currentVertSpeed > 0f ? true : currentJumpHeight > 0f)
+    {
+      touchesGround = false;
+      currentJumpHeight += currentVertSpeed * Time.fixedDeltaTime;
+      currentVertSpeed += gravity * Time.fixedDeltaTime;
+      animator.SetFloat("Height", currentJumpHeight);
+      UpdateHeight();
+    }
+    else if (currentVertSpeed < 0f && currentJumpHeight < 0f)
+    {
+      touchesGround = true;
+      currentJumpHeight = 0f;
+      currentVertSpeed = 0f;
+      animator.SetFloat("Height", currentJumpHeight);
+      UpdateHeight();
+    }
+    if (verbose) Debug.Log(" - height " + currentJumpHeight + "\t current vert speed" + currentVertSpeed);
+  }
+
+  private void UpdateHeight()
+  {
+    spriteGraphicGO.transform.position = transform.position + new Vector3() { y = currentJumpHeight };
   }
 
 
@@ -109,6 +195,17 @@ public class NinjaController : ACreatureMono
         StartCoroutine(ReadyCoroutine());
       CurrentState = CreatureActionState.Ready;
     }
+    else if(CurrentState == CreatureActionState.Pursuing)
+    {
+      if (!_runningJumpCoroutine)
+        StartCoroutine(JumpCoroutine());
+    }
     return true;
   }
+
+  private void UpdateLookingDirection()
+  {
+    myRenderer.flipX = playerGo.transform.position.x < transform.position.x;
+  }
+
 }

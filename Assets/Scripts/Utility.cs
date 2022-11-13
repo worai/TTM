@@ -29,5 +29,23 @@ public static class Utility
     return result;
   }
 
+  /// <summary>
+  /// Answers the question "What should the vertical jump speed be,
+  /// given that we know the gravitational acc, distance jumped and horizontal speed.
+  /// </summary>
+  /// <param name="distance">Absolutized</param>
+  /// <param name="gravity">Absolutized</param>
+  /// <param name="horizontalSpeed">Absolutized</param>
+  /// <returns></returns>
+  public static float InitialJumpSpeed(float distance, float gravity, float horizontalSpeed)
+  {
+    float result = 1;
+    if (horizontalSpeed != 0f)
+    {
+      result = Mathf.Abs(distance * gravity / (horizontalSpeed));
+    }
+    return result;
+  }
+
 
 }

@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
   private void Start()
   {
+    gravity = GlobalSettings.Instance.Gravity;
+
     data = GetComponent<CreatureData>();
     pmi = new PlayerMovementInput();
     pmi.Enable();

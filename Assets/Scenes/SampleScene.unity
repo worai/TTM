@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precariousTimeLimit: 2
+  verbose: 0
 --- !u!60 &14862945
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1023,6 +1024,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  verbose: 0
 --- !u!61 &185907378
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1707,6 +1709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precariousTimeLimit: 2
+  verbose: 0
 --- !u!60 &315992213
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -2254,6 +2257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precariousTimeLimit: 2
+  verbose: 0
 --- !u!1 &378158972
 GameObject:
   m_ObjectHideFlags: 0
@@ -9434,6 +9438,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  verbose: 0
 --- !u!1 &1358389121
 GameObject:
   m_ObjectHideFlags: 0
@@ -9528,8 +9533,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e139dedccc50c9445b3cd535cd19b44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  verbose: 0
   data: {fileID: 1358389125}
   animator: {fileID: 1797931979}
+  myRenderer: {fileID: 1797931980}
   attackRange: 1
   moveSpeed: 2
   attackWindUp: 1
@@ -9537,6 +9544,9 @@ MonoBehaviour:
   minDamage: 10
   maxDamage: 25
   currentReadyRunPeriod: 2
+  spriteGraphicGO: {fileID: 1797931977}
+  jumpSpeed: 20
+  maxJumpDistance: 6
 --- !u!1 &1360071795
 GameObject:
   m_ObjectHideFlags: 0
@@ -13155,6 +13165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precariousTimeLimit: 2
+  verbose: 0
 --- !u!1 &1918516821
 GameObject:
   m_ObjectHideFlags: 0
