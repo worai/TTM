@@ -2497,10 +2497,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerateLevel: 0
-  mapCols: 5
-  mapRows: 10
+  mapCols: 1
+  mapRows: 1
   decayGradient: 10
-  deactivateTemplates: 0
+  deactivateTemplates: 1
   facBuilder: {fileID: 413469560}
   accBuilder: {fileID: 210200308}
   hghBuilder: {fileID: 553077563}

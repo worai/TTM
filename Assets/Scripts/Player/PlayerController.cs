@@ -21,7 +21,9 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private SpriteRenderer myRenderer;
   [SerializeField] private GameObject spriteGraphicGO;
 
-  
+  // TODO see if BalanceStartedEvent & BalanceCancelledEvent are really necessary
+  [HideInInspector] public BalanceStartedEvent onStartedBalancingCoords;
+  [HideInInspector] public BalanceCancelledEvent onCancelledBalancingCoords;
   [HideInInspector] public UnityEvent onStartedBalancing;
   [HideInInspector] public UnityEvent onStoppedBalancing;
 
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
     pmi.Player.Brace.started += Brace_started;
     pmi.Player.Brace.canceled += Brace_canceled;
     pmi.Player.Balance.started += Balance_started;
-    pmi.Player.Balance.canceled += Balance_canceled;
+    pmi.Player.Balance.canceled += Balance_cancelled;
   }
 
   private void FixedUpdate()
@@ -123,13 +125,15 @@ public class PlayerController : MonoBehaviour
 
   private void Balance_started(InputAction.CallbackContext context)
   {
+    Debug.Log("Balance started");
     Balancing = true;
     onStartedBalancing?.Invoke();
     animator.SetBool("Balancing", true);
   }
 
-  private void Balance_canceled(InputAction.CallbackContext obj)
+  private void Balance_cancelled(InputAction.CallbackContext obj)
   {
+    Debug.Log("Balance cancelled");
     Balancing = false;
     onStoppedBalancing?.Invoke();
     animator.SetBool("Balancing", false);

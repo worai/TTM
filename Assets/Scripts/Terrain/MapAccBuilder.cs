@@ -39,7 +39,7 @@ public class MapAccBuilder : MonoBehaviour
       {
         MapNodeState mapNodeState = newGO.AddComponent<MapNodeState>();
         //TODO providing level here is probably not correct?
-        if (mapNodeState.Instantiate(state: state, level: 0))
+        if (mapNodeState.Instantiate(state: state, level: 0, col, row))
         {
           //GetComponent<StateSpriteController>().Instantiate(mapNodeState);
           //try doing nothing

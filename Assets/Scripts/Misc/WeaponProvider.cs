@@ -11,6 +11,7 @@ public class WeaponProvider : MonoBehaviour
   [SerializeField] private AWeapon weapon;
   [SerializeField] private WeaponPickupWeaponEvent pickupEvent;
   [SerializeField] private UnityEvent surpriseEvent;
+  [SerializeField] private bool verbose = false;
 
   private bool playerInTrigger = false;
   private bool weaponPickedUp = false;
@@ -30,7 +31,7 @@ public class WeaponProvider : MonoBehaviour
 
     if (collisionObjectLayer == mask)
     {
-      Debug.Log($"player should notice provider of {weapon}");
+      if(verbose) Debug.Log($"player should notice provider of {weapon}");
       playerInTrigger = true;
       if(!surpriseEventInvoked)
       {
@@ -59,7 +60,7 @@ public class WeaponProvider : MonoBehaviour
     if (collisionObjectLayer == mask)
     {
       playerInTrigger = false;
-      Debug.Log("Player exited area.");
+      if(verbose) Debug.Log("Player exited area.");
     }
   }
 

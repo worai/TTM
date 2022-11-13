@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class HoleEventHandler : MonoBehaviour
@@ -6,14 +7,19 @@ public class HoleEventHandler : MonoBehaviour
 
   //TODO should this be a global setting perhaps??
   [SerializeField] private float precariousTimeLimit = 2f;
+  [SerializeField] private bool verbose = false;
 
+  private MapNodeState nodeInfos;
   private PlayerController controller;
   private bool _inTriggerArea;
 
-
   private void Start()
   {
+    nodeInfos = transform.parent.transform.parent.GetComponent<MapNodeState>();
+    Debug.Log("MapNodeState " + nodeInfos.ToString());
+
     controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    //controller.onStartedBalancingCoords.AddListener(ResetFallTimerCoords);
     controller.onStartedBalancing.AddListener(ResetFallTimer);
     controller.onStoppedBalancing.AddListener(RestartFallTimer);
   }
@@ -21,7 +27,7 @@ public class HoleEventHandler : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    Debug.Log("Collision in hole: " + collision.name);
+    if (verbose) Debug.Log("Collision in hole: " + collision.name);
     HandlePlayerFallingDetectorEnteringHole(collision);
     HandlePrecariousStateEnteringHole(collision);
     _inTriggerArea = true;
@@ -29,11 +35,10 @@ public class HoleEventHandler : MonoBehaviour
 
   private void OnTriggerExit2D(Collider2D collision)
   {
-    Debug.Log("Collision that left hole: " + collision.name);
+    if (verbose) Debug.Log("Collision that left hole: " + collision.name);
     _inTriggerArea = false;
     HandleEndOfPrecariousState(collision);
   }
-
 
 
 
@@ -122,19 +127,28 @@ public class HoleEventHandler : MonoBehaviour
   }
 
 
+  private void ResetFallTimerCoords(ColNum arg0, RowNum arg1)
+  {
+    throw new NotImplementedException();
+  }
+
   private void ResetFallTimer()
   {
     if (FallTimerCoroutine == null) return;
+    if (!_inTriggerArea) return;
+    Debug.Log("Reset fall timer; stopping coroutine");
     StopCoroutine(FallTimerCoroutine);
   }
 
   private void RestartFallTimer()
   {
-    if (!_inTriggerArea) 
+    if (!_inTriggerArea)
       return;
     else
     {
+      Debug.Log("Restart timer");
       FallTimerCoroutine = FallTimer(controller, precariousTimeLimit);
+      StartCoroutine(FallTimerCoroutine);
     }
   }
 

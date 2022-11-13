@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,10 @@ public class MapNodeState : MonoBehaviour
   public byte State {get; private set;}
   public byte Health { get; private set; }
   public byte Level { get; private set; }
+  public RowNum Row { get; set; }
+  public ColNum Col { get; set; }
+
+
 
   private void Start()
   {
@@ -26,16 +31,31 @@ public class MapNodeState : MonoBehaviour
   /// <param name="state"></param>
   /// <param name="level">zero based</param>
   /// <returns>true if successful, otherwise false</returns>
-  internal bool Instantiate(byte state, byte level)
+  internal bool Instantiate(byte state, byte level, ColNum col, RowNum row)
   {
     if(!instantiated)
     {
       instantiated = true;
-      State = state;
-      Health = state;
-      Level = level;
+      this.State = state;
+      this.Health = state;
+      this.Level = level;
+      this.Col = col;
+      this.Row = row;
       return true;
     }
     return false;
   }
+
+  public override string ToString()
+  {
+    StringBuilder sb = new StringBuilder();
+    
+    sb.AppendLine($"-[State: {State}")
+      .AppendLine($"  Health: {Health}")
+      .AppendLine($"  Level: {Level}")
+      .AppendLine($"  Col: {Col}")
+      .AppendLine($"  Row: {Row}]");
+    return base.ToString();
+  }
+
 }
