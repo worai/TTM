@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 111583298}
   - component: {fileID: 111583299}
   m_Layer: 0
-  m_Name: InstallerExo-Open
+  m_Name: InstallerExo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,6 +838,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a486cb4ae0ee0a40a148db905d3c680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerup: {fileID: 0}
+  pickupEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  verbose: 0
 --- !u!1 &120231146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,7 +1777,7 @@ GameObject:
   - component: {fileID: 284952742}
   - component: {fileID: 284952743}
   m_Layer: 0
-  m_Name: InstallerNeuro-Open
+  m_Name: InstallerNeuro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

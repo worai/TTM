@@ -15,6 +15,7 @@ public class WeaponProvider : MonoBehaviour
 
   private bool playerInTrigger = false;
   private bool weaponPickedUp = false;
+  // TODO move this to another class that can be reused by other guys as well
   private bool surpriseEventInvoked = false;
 
   private void Start()
