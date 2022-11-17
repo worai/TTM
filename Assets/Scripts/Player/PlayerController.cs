@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private SpriteRenderer myRenderer;
   [SerializeField] private GameObject spriteGraphicGO;
 
+  
+
   // TODO see if BalanceStartedEvent & BalanceCancelledEvent are really necessary
   [HideInInspector] public BalanceStartedEvent onStartedBalancingCoords;
   [HideInInspector] public BalanceCancelledEvent onCancelledBalancingCoords;
@@ -214,12 +216,18 @@ public class PlayerController : MonoBehaviour
   }
 
 
+
   public void Jump()
   {
     if(touchesGround)
     {
       currentVertSpeed = initJumpSpeed;
     }
+  }
+
+  public void PickedUpStrengthPowerup()
+  {
+
   }
 
 
