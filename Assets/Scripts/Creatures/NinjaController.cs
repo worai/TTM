@@ -66,7 +66,7 @@ public class NinjaController : ACreatureMono
 
   private void FixedUpdate()
   {
-    if (data.IsDead) return;
+    if (data.IsDead || !GetComponentInChildren<CreatureAutoSpawner>().AlreadySpawned) return;
     if (playerGo == null) playerGo = GameObject.FindGameObjectWithTag("Player");
     if (playerGo == null) CurrentState = CreatureActionState.Idle;
 
