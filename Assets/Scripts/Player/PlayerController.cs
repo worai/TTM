@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
   public bool CantBePrecarious { get; private set; }
   public bool Bracing { get; private set; }
   public bool Balancing { get; private set; }
+  public int Strength { get; private set; }
+  public int Balance { get; private set; }
 
   private void Start()
   {
@@ -129,14 +131,23 @@ public class PlayerController : MonoBehaviour
 
   private void Balance_started(InputAction.CallbackContext context)
   {
-    Debug.Log("Balance started");
-    Balancing = true;
-    onStartedBalancing?.Invoke();
-    animator.SetBool("Balancing", true);
+    if (Balance > 0)
+    {
+      Debug.Log("Balance started");
+      Balancing = true;
+      onStartedBalancing?.Invoke();
+      animator.SetBool("Balancing", true);
+    }
+    else
+    {
+      Debug.Log("Can't balance");
+    }
+
   }
 
   private void Balance_cancelled(InputAction.CallbackContext obj)
   {
+    //Always wanna be able to cancel the balancing thing at least.
     Debug.Log("Balance cancelled");
     Balancing = false;
     onStoppedBalancing?.Invoke();
@@ -227,7 +238,12 @@ public class PlayerController : MonoBehaviour
 
   public void PickedUpStrengthPowerup()
   {
+    Strength++;
+  }
 
+  public void PickedUpBalancePowerup()
+  {
+    Balance++;
   }
 
 
