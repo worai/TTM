@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class DronesCameraController : MonoBehaviour
 {
+  [SerializeField] Transform playerTrans;
+  [SerializeField] GameObject droneTemplate;
   [SerializeField] private Camera cam;
   [SerializeField] private float stdSize = 5;
 
@@ -33,6 +35,7 @@ public class DronesCameraController : MonoBehaviour
     input.Player.UpRight.started += UpRight_started;
   }
 
+  #region direction handling
   private void UpRight_started(InputAction.CallbackContext obj)
   {
     MoveView(8);
@@ -88,21 +91,23 @@ public class DronesCameraController : MonoBehaviour
   /// <param name="dir">zero based</param>
   public void MoveView(int dir)
   {
+    int i = (dir) % 3 - 1;
+    int j = (int)((dir) / 3) - 1;
+
     if(dir != 4)
     { 
       if (_currentNumDrones == 0  || 
         (_last_dir.HasValue && _last_dir == dir)
-        ) TryAddDrone();
+        ) TryAddDrone((new Vector3(i, j)).normalized);
     }
     if (dir != 4) _last_dir = dir;
     //float shift = stdSize * 0.5f * GetZoomOutFactor();
     float shift = stdSize * GetZoomOutFactor() - 1f;
-    int i = (dir) % 3 - 1;
-    int j = (int)((dir) / 3) - 1;
     cam.transform.localPosition = new Vector3(i * shift, j * shift, -10f);
 
   }
 
+  #endregion
 
   private void RemoveAllDrones_started(InputAction.CallbackContext context)
   {
@@ -124,12 +129,12 @@ public class DronesCameraController : MonoBehaviour
     TryAddDrone();
   }
 
-  private void TryAddDrone()
+  private void TryAddDrone(Vector3? direction = null)
   {
     if (_currentNumDrones < _maximumNumDrones)
     {
       _currentNumDrones++;
-      SpawnDrone();
+      SpawnDrone(direction);
       AdjustCamerSize();
     }
   }
@@ -150,9 +155,12 @@ public class DronesCameraController : MonoBehaviour
     }
   }
 
-  private void SpawnDrone()
+  private void SpawnDrone(Vector3? direction = null)
   {
-    Debug.Log("Drone object is instantiated, and flies away in a random direction until some set distance, and then destroys itself");
+    GameObject newGO = Instantiate(droneTemplate);
+    newGO.transform.position = playerTrans.position;
+    newGO.SetActive(true);
+    if (direction != null) newGO.GetComponent<DroneController>().SetDirection(direction.Value);
   }
 
   private void DespawnDrone()
