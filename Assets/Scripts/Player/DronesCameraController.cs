@@ -27,6 +27,30 @@ public class DronesCameraController : MonoBehaviour
     input.Player.DownRight.started += DownRight_started;
     input.Player.Left.started += Left_started;
     input.Player.MiddleCentre.started += MiddleCentre_started;
+    input.Player.Right.started += Right_started;
+    input.Player.UpLeft.started += UpLeft_started;
+    input.Player.Up.started += Up_started;
+    input.Player.UpRight.started += UpRight_started;
+  }
+
+  private void UpRight_started(InputAction.CallbackContext obj)
+  {
+    MoveView(8);
+  }
+
+  private void Up_started(InputAction.CallbackContext obj)
+  {
+    MoveView(7);
+  }
+
+  private void UpLeft_started(InputAction.CallbackContext obj)
+  {
+    MoveView(6);
+  }
+
+  private void Right_started(InputAction.CallbackContext obj)
+  {
+    MoveView(5);
   }
 
   private void MiddleCentre_started(InputAction.CallbackContext obj)
@@ -36,12 +60,12 @@ public class DronesCameraController : MonoBehaviour
 
   private void Left_started(InputAction.CallbackContext obj)
   {
-    throw new System.NotImplementedException();
+    MoveView(3);
   }
 
   private void DownRight_started(InputAction.CallbackContext obj)
   {
-    throw new System.NotImplementedException();
+    MoveView(2);
   }
 
   private void Down_started(InputAction.CallbackContext obj)
@@ -51,7 +75,7 @@ public class DronesCameraController : MonoBehaviour
 
   private void DownLeft_started(InputAction.CallbackContext obj)
   {
-    throw new System.NotImplementedException();
+    MoveView(0);
   }
 
   /// <summary>
