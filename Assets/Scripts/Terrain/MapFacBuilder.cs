@@ -571,7 +571,15 @@ public class MapFacBuilder : MonoBehaviour
     GetInDirection(direction, i, j, out int a, out int b);
     return path.Get(a, b);
   }
-  
+
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="direction">Zero based</param>
+  /// <param name="i"></param>
+  /// <param name="j"></param>
+  /// <param name="a"></param>
+  /// <param name="b"></param>
   private void GetInDirection(int direction, int i, int j, out int a, out int b)
   {
     a = i + (direction) % 3 - 1;
