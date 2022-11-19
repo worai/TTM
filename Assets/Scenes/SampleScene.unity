@@ -4126,7 +4126,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4216,85 +4215,6 @@ Transform:
   m_Father: {fileID: 508719158}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5ac1d43962dc0fb4698f3162d5a15068,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f45812df-a610-400c-8886-b2ab350237b0
-    m_ActionName: Player/AddDrone[/Keyboard/numpadPlus]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 01421d54-6ebd-4e5d-801f-d7a0d11f1726
-    m_ActionName: Player/RemoveDrone[/Keyboard/numpadMinus]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b613f8b0-999f-4fa3-a584-bd37218afb73
-    m_ActionName: Player/RemoveAllDrones[/Keyboard/numpad0]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b9931175-3c55-49ae-aa1a-19f7a76143c3
-    m_ActionName: Player/DownLeft[/Keyboard/numpad1]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 40bf6550-c8f5-424a-b542-1f678ca68fb2
-    m_ActionName: Player/Down[/Keyboard/numpad2]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 558b3b4e-37ee-4984-95ea-88e630f6e3e4
-    m_ActionName: Player/DownRight[/Keyboard/numpad3]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5da47eaa-f01b-4216-8c61-e013105e8942
-    m_ActionName: Player/Left[/Keyboard/numpad4]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ce37c8a9-3b27-42be-8ce1-e461a3ab8128
-    m_ActionName: Player/MiddleCentre[/Keyboard/numpad5]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 75e0002c-8ebf-4194-9aff-9e0797d9f6e3
-    m_ActionName: Player/Right[/Keyboard/numpad6]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7c686e4c-2854-4666-a3b6-53105cc2872c
-    m_ActionName: Player/UpLeft[/Keyboard/numpad7]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d0555075-b157-464b-ba1f-ff2d7d4c25bc
-    m_ActionName: Player/Up[/Keyboard/numpad8]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3fcc86dc-8d89-4b8e-8b88-10ba2db88671
-    m_ActionName: Player/UpRight[/Keyboard/numpad9]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &538244046
 GameObject:
   m_ObjectHideFlags: 0
@@ -10901,6 +10821,7 @@ MonoBehaviour:
   startSpeed: 2
   acceleration: 30
   maxDistanceFromPlayer: 25
+  despawnRangeProximityToPlayer: 0.3
 --- !u!212 &1460198860
 SpriteRenderer:
   m_ObjectHideFlags: 0

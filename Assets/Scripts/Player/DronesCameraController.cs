@@ -35,7 +35,7 @@ public class DronesCameraController : MonoBehaviour
     input.Player.UpRight.started += UpRight_started;
   }
 
-  #region direction handling
+  #region view direction handling
   private void UpRight_started(InputAction.CallbackContext obj)
   {
     MoveView(8);
@@ -146,6 +146,7 @@ public class DronesCameraController : MonoBehaviour
       _currentNumDrones--;
       DespawnDrone();
       AdjustCamerSize();
+      if(_last_dir.HasValue && _last_dir != -1) MoveView(_last_dir.Value);
     }
     if (_currentNumDrones == 0)
     {
@@ -155,17 +156,22 @@ public class DronesCameraController : MonoBehaviour
     }
   }
 
-  private void SpawnDrone(Vector3? direction = null)
+  private void SpawnDrone(Vector3? direction = null, DroneController.DroneMode mode = DroneController.DroneMode.Spawning)
   {
-    GameObject newGO = Instantiate(droneTemplate);
+    GameObject newGO = Instantiate(droneTemplate); 
     newGO.transform.position = playerTrans.position;
     newGO.SetActive(true);
-    if (direction != null) newGO.GetComponent<DroneController>().SetDirection(direction.Value);
+    DroneController controller = newGO.GetComponent<DroneController>();
+    if(direction != null) controller.SetDirection(direction.Value);
+    controller.Instantiate(DroneController.DroneMode.Spawning);
   }
 
   private void DespawnDrone()
   {
-    Debug.Log("A drone object is instantiated far from the player character, flies towards them in a homing fashion until they have reached the player character.");
+    GameObject newGO = Instantiate(droneTemplate);
+    newGO.transform.position = playerTrans.position + new Vector3(100f, 0f);
+    newGO.SetActive(true);
+    newGO.GetComponent<DroneController>().Instantiate(DroneController.DroneMode.Despawning);
   }
 
   private void AdjustCamerSize()
