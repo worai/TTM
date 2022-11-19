@@ -6,17 +6,14 @@ using UnityEngine.Events;
 
 
 
-public class WeaponProvider : MonoBehaviour
+public class WeaponProvider : SurpriseEventHandler
 {
   [SerializeField] private AWeapon weapon;
   [SerializeField] private WeaponPickupWeaponEvent pickupEvent;
-  [SerializeField] private UnityEvent surpriseEvent;
   [SerializeField] private bool verbose = false;
 
   private bool playerInTrigger = false;
   private bool weaponPickedUp = false;
-  // TODO move this to another class that can be reused by other guys as well
-  private bool surpriseEventInvoked = false;
 
   private void Start()
   {
@@ -28,18 +25,12 @@ public class WeaponProvider : MonoBehaviour
     string[] maskNames = { "EventDetector" };
     LayerMask mask = LayerMask.GetMask(maskNames);
     int collisionObjectLayer = 1 << collision.gameObject.layer; 
-    //if(collision.TryGetComponent(out PlayerController controller))
-
     if (collisionObjectLayer == mask)
     {
       if(verbose) Debug.Log($"player should notice provider of {weapon}");
       playerInTrigger = true;
-      if(!surpriseEventInvoked)
-      {
-        surpriseEvent.Invoke();
-        surpriseEventInvoked = true;
-      }
     }
+    base._onTriggerEnter2D(collision);
   }
 
 

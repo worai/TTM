@@ -11,7 +11,7 @@ using UnityEngine.Events;
 /// If I wanna come up with some more type of pickup thing, then I might consider it.
 /// Tho it would then be best to perhaps rethink the Weapon family.
 /// </summary>
-public class PowerupProvider : MonoBehaviour
+public class PowerupProvider : SurpriseEventHandler
 {
   //[SerializeField] private PowerupPickupWeaponEvent pickupEvent;
   [SerializeField] private UnityEvent pickupEvent;
@@ -48,6 +48,7 @@ public class PowerupProvider : MonoBehaviour
       playerInTrigger = false;
       if (verbose) Debug.Log("Player exited area.");
     }
+    base._onTriggerEnter2D(collision);
   }
 
   public void TryGetPowerup()
