@@ -8,10 +8,22 @@ using UnityEngine.Audio;
 /// </summary>
 public class OptionsMenu : MonoBehaviour
 {
-  List<int> widths = new List<int> { 640, 800, 1024 };
-  List<int> heights = new List<int> { 480, 600, 768 };
 
   [SerializeField] private AudioMixer mainMixer;
+
+  private List<int> widths = new List<int> { 640, 800, 1024 };
+  private List<int> heights = new List<int> { 480, 600, 768 };
+  private RectTransform myRect;
+
+  private void Awake()
+  {
+    myRect = GetComponent<RectTransform>();
+    //myRect.rect.x = 0f; myRect.rect.y = 0f;
+    //myRect.rect.width = Screen.currentResolution.width;
+    //myRect.rect.height = Screen.currentResolution.height;
+
+  }
+
 
   public void SetMainVolume(float value)
   {
