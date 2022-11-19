@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour
 
   private void Brace_canceled(InputAction.CallbackContext obj)
   {
+    Debug.Log("Bracing stopped");
     Bracing = false;
   }
 
