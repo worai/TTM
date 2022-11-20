@@ -6,6 +6,9 @@ public static class LevelInfos
 {
 
   
+  /// <summary>
+  /// 1-based
+  /// </summary>
   public static int? Level { get; set; }
   public static bool? Fell { get; set; }
   public static bool StartingIndors { get; set; }

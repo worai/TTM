@@ -2898,9 +2898,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd079638414d265458676c80cb3d8cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GenerateLevel: 0
-  mapCols: 1
-  mapRows: 1
+  testGenerateLevel: 3
+  mapCols: 5
+  mapRows: 10
   decayGradient: 10
   deactivateTemplates: 1
   facBuilder: {fileID: 413469560}

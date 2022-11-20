@@ -7,7 +7,7 @@ public class Transition1to2 : MonoBehaviour
 {
   [SerializeField] private Animator myAnimator;
   [SerializeField] private Image myImage;
-  private string animationName = "FallingCharacter1to2";
+  [SerializeField] private string animationName = "FallingCharacter1to2";
 
   [SerializeField] private float waitFadeIn = 1f;
   [SerializeField] private float waitTime1 = 2f;
@@ -15,6 +15,10 @@ public class Transition1to2 : MonoBehaviour
   [SerializeField] private float waitFadeOut = 1f;
 
 
+  /// <summary>
+  /// Level moving from one to another is handled in the transition...
+  /// </summary>
+  /// <returns></returns>
   IEnumerator Start()
   {
     myImage = GetComponent<Image>();

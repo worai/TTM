@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FallingCharacter1to2
+  m_Name: FallingCharacter3to4
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -50,7 +50,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -13
+        value: 15
         inSlope: -12.968553
         outSlope: -12.968553
         tangentMode: 0
@@ -59,12 +59,12 @@ AnimationClip:
         outWeight: 0.12491388
       - serializedVersion: 3
         time: 2
-        value: -37
-        inSlope: -11.828211
-        outSlope: -11.828211
+        value: -150
+        inSlope: -147.81544
+        outSlope: -147.81544
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.090626955
+        inWeight: 0.044629514
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -186,7 +186,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -13
+        value: 15
         inSlope: -12.968553
         outSlope: -12.968553
         tangentMode: 0
@@ -195,12 +195,12 @@ AnimationClip:
         outWeight: 0.12491388
       - serializedVersion: 3
         time: 2
-        value: -37
-        inSlope: -11.828211
-        outSlope: -11.828211
+        value: -150
+        inSlope: -147.81544
+        outSlope: -147.81544
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.090626955
+        inWeight: 0.044629514
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2

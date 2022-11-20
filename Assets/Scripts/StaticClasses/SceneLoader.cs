@@ -10,6 +10,7 @@ public static class SceneLoader
   {
     TransitionScene,
     SampleScene,
+    StartMenu,
   }
 
   // TODO set scene infos in here?

@@ -18,11 +18,12 @@ public class MapManager : MonoBehaviour
 
   public enum LevelEnum // your custom enumeration
   {
-    Accomodations
-    , Factory
-    , HighWay
+    Accomodations,
+    Factory,
+    HighWay,
+    None
   };
-  public LevelEnum GenerateLevel = LevelEnum.Accomodations;
+  public LevelEnum testGenerateLevel = LevelEnum.Accomodations;
 
 
   [Tooltip("Acc, Hor, Vrt, Crs, Bld")] private GameObject[] mapElementTemplates;
@@ -59,9 +60,10 @@ public class MapManager : MonoBehaviour
 
     mapData = new MapData(numCols: mapCols, numRows: mapRows, currentLevel: LevelInfos.Level);
 
-    if(LevelInfos.Level.HasValue)
+    if (testGenerateLevel == LevelEnum.None)
     {
-      if (LevelInfos.Level.Value == 1)
+      
+      if (!LevelInfos.Level.HasValue || LevelInfos.Level.Value == 1)
         GenerateAcc();
       else if (LevelInfos.Level.Value == 2)
         GenerateFac();
@@ -70,13 +72,16 @@ public class MapManager : MonoBehaviour
       //else if (LevelInfos.Level.Value == 4)
       //  GenerateDes(); //TODO map for desolation, w lotsa rubbles and such.
     }
+    else
+    {
+      if (testGenerateLevel == LevelEnum.Accomodations)
+        GenerateAcc();
+      else if (testGenerateLevel == LevelEnum.Factory)
+        GenerateFac();
+      else if (testGenerateLevel == LevelEnum.HighWay)
+        GenerateHgh();
+    }
 
-    if (GenerateLevel == LevelEnum.Accomodations)
-      GenerateAcc();
-    else if (GenerateLevel == LevelEnum.Factory)
-      GenerateFac();
-    else if (GenerateLevel == LevelEnum.HighWay)
-      GenerateHgh();
   }
 
   public void ResetMapContainer()
