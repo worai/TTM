@@ -12,6 +12,8 @@ public abstract class ACreatureMono : MonoBehaviour
     Pursuing = 1,
     Attacking,
     Raging,
-    Ready
+    Ready,
+    Evading,
+    Staggered
   }
 }

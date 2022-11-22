@@ -60,6 +60,7 @@ public class NinjaController : ACreatureMono
     gravity = GlobalSettings.Instance.Gravity;
     _currentReadyRunPeriod = currentReadyRunPeriod;
     playerGo = GameObject.FindGameObjectWithTag("Player");
+    if (playerGo != null) playerGo.GetComponentInChildren<PlayerWeapon>().onWeaponShot.AddListener(HandleBeingShotAt);
   }
 
 
@@ -70,7 +71,7 @@ public class NinjaController : ACreatureMono
     if (playerGo == null) playerGo = GameObject.FindGameObjectWithTag("Player");
     if (playerGo == null) CurrentState = CreatureActionState.Idle;
 
-    if (!UpdateState())
+    if (!UpdateStateNCoroutine())
     {
       // ??
     }
@@ -111,12 +112,8 @@ public class NinjaController : ACreatureMono
     _runningReadyCoroutine = false;
   }
 
-  private bool _runningJumpCoroutine = false;
-  /// <summary>
-  /// This basically tries to jump closer to player for an attack
-  /// </summary>
-  /// <returns></returns>
-  private IEnumerator JumpCoroutine()
+  private bool _runningJumpPursueCoroutine = false;
+  private IEnumerator JumpPursueCoroutine()
   {
     _runningReadyCoroutine = true;
     //Vector3 final = 
@@ -135,6 +132,44 @@ public class NinjaController : ACreatureMono
     animator.SetFloat("Height", currentJumpHeight);
     CurrentState = CreatureActionState.Ready;
     _runningReadyCoroutine = false;
+  }
+
+  private bool _runningJumpEvadeCoroutine = false;
+  private IEnumerator JumpEvadeCoroutine()
+  {
+    _runningJumpEvadeCoroutine = true;
+    //Vector3 final = 
+    float vertJumpSpeed = this.jumpSpeed;
+    Vector3 playerDirection = (playerGo.transform.position - transform.position).normalized;
+    Vector3 rightDirection = GetRightRandomDirection(playerDirection);
+    int mask = LayerMask.GetMask("Structure");
+    RaycastHit2D hit = Physics2D.Raycast(transform.position, rightDirection, maxJumpDistance, mask);
+    if (hit)
+    {
+      rightDirection = -rightDirection;
+      //if hit other direction
+      //  stop the coroutine... make ref to this coroutine, for this clause to be able to reach it.
+    }
+    Vector3 jumpDestination = transform.position + rightDirection * maxJumpDistance;
+    //bool canAttack = TryFindPositionCloserToPlayer(max: maxJumpDistance, out jumpDestination);
+    float jumpDistance = maxJumpDistance; // (jumpDestination - transform.position).magnitude;
+    currentVertSpeed = Utility.InitialJumpSpeed(jumpDistance, gravity, vertJumpSpeed);
+    currentHorzVelocity = rightDirection * vertJumpSpeed;
+    while (currentVertSpeed > 0f ? true : currentJumpHeight != 0f)
+    {
+      HandleJumping();
+      //yield return new WaitForEndOfFrame();
+      yield return new WaitForSeconds(Time.deltaTime);
+    }
+
+    animator.SetFloat("Height", currentJumpHeight);
+    CurrentState = CreatureActionState.Ready;
+    _runningJumpEvadeCoroutine = false;
+  }
+
+  private Vector3 GetRightRandomDirection(Vector3 playerDirection)
+  {
+    return (new Vector3(playerDirection.y, -playerDirection.x )) * (UnityEngine.Random.Range(0,2) * 2 - 1);
   }
 
   private bool TryFindPositionCloserToPlayer(float max, out Vector3 jumpDestination)
@@ -180,7 +215,7 @@ public class NinjaController : ACreatureMono
   }
 
 
-  private bool UpdateState()
+  private bool UpdateStateNCoroutine()
   {
     if (playerGo == null) return false;
     if (playerGo != null && CurrentState == CreatureActionState.Idle) CurrentState = CreatureActionState.Ready;
@@ -197,10 +232,33 @@ public class NinjaController : ACreatureMono
     }
     else if(CurrentState == CreatureActionState.Pursuing)
     {
-      if (!_runningJumpCoroutine)
-        StartCoroutine(JumpCoroutine());
+      if (!_runningJumpPursueCoroutine)
+        StartCoroutine(JumpPursueCoroutine());
+    }
+    else if(CurrentState == CreatureActionState.Evading)
+    {
+      if (!_runningJumpEvadeCoroutine)
+        StartCoroutine(JumpEvadeCoroutine());
+    }
+    else if (CurrentState == CreatureActionState.Staggered)
+    {
+      Debug.LogError("Staggered state is not handled yet.");
     }
     return true;
+  }
+
+  public void HandleBeingShotAt(bool hit)
+  {
+    if (hit)
+      CurrentState = CreatureActionState.Staggered;
+    else
+      CurrentState = CreatureActionState.Evading;
+  }
+
+  [Obsolete("Use HandleBeingShotAt instead")]
+  public void SetEvadingState()
+  {
+    CurrentState = CreatureActionState.Evading;
   }
 
   private void UpdateLookingDirection()

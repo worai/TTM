@@ -28,6 +28,7 @@ public class PlayerWeapon : MonoBehaviour
   [SerializeField] private WeaponPickupWeaponEvent receivedWeapon1Event;
   [SerializeField] private WeaponPickupWeaponEvent receivedWeapon2Event;
 
+  [HideInInspector] public ShootEventHit onWeaponShot;
 
 
   void Start()
