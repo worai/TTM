@@ -27,6 +27,13 @@ public class Director : MonoBehaviour
 
   private float resetTime = 0f;
 
+  private GameTracker tracker;
+
+  private void Awake()
+  {
+    tracker = new GameTracker();
+  }
+
   /// <summary>
   /// Automatically shifts between its state.
   /// </summary>
