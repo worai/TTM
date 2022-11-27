@@ -1,0 +1,5 @@
+Following scenario is a pain
+
+ - Have multiple png's for each animation
+ - Decide to change color scheme
+ - Now, tonnes of little png's have to be exported for each animation, because of that little color change!
