@@ -4175,7 +4175,8 @@ MonoBehaviour:
   printMessages: 0
   gravity: -10
   initJumpSpeed: 3
-  speed: 4
+  walkSpeed: 3
+  runSpeed: 5
   animator: {fileID: 1650272653}
   myRenderer: {fileID: 1650272651}
   spriteGraphicGO: {fileID: 1650272650}

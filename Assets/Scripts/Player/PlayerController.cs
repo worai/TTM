@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
   [Tooltip("2 (Can' jump very far at all with just 2. Maybe better use a value of 3?")]
   [SerializeField] private float initJumpSpeed = 2f;
   [Tooltip("Might wanna start off as 3")]
-  [SerializeField] private float speed = 5f;
+  [SerializeField] private float walkSpeed = 3f;
+  [SerializeField] private float runSpeed = 5f;
   [Space(10)]
   [SerializeField] private Animator animator;
   [SerializeField] private SpriteRenderer myRenderer;
@@ -159,7 +160,7 @@ public class PlayerController : MonoBehaviour
   private void HandleMovement()
   {
     if (data.IsDead || Falling) return;
-    float _speed = speed * (!Balancing && Precarious && currentJumpHeight < 0.1f ? 0.2f : 1f);
+    float _speed = walkSpeed * (!Balancing && Precarious && currentJumpHeight < 0.1f ? 0.2f : 1f);
 
     if(!Bracing)
     {
