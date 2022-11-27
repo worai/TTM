@@ -104,6 +104,8 @@ public class MapManager : MonoBehaviour
         accBuilder.BuildNode(col: i, row: j, mapElementSideSize: 10f, state: (byte)cellState);
 
       }
+      LevelInfos.MapHeight = mapRows * mapElementSideSize;
+      LevelInfos.MapWidth = mapCols * mapElementSideSize;
     }
 
     //simple construction, don't care about state/health of map-node/bigish place
@@ -129,6 +131,7 @@ public class MapManager : MonoBehaviour
     TileMapFac pathTileMap = facBuilder.GeneratePath(numColumns: facCols, numRows: facRows); // new TileMapFac(numColumns: facCols, numRows: facRows);
     TileMapFac facTileMap = facBuilder.GenerateTileMap(toolingTileMap, numColumns: facCols, numRows: facRows); //new TileMapFac(numColumns: facCols, numRows: facRows);
     
+    //For testing pathing
     //for (int i = 0; i < pathTileMap.Height; i++)
     //{
     //  //pathTileMap.Set(pathTileMap.Width / 2, i, true);
@@ -138,7 +141,7 @@ public class MapManager : MonoBehaviour
     TileMapFac horObstructionsTileMap = facBuilder.GenerateHorObstructions(facTileMap, pathTileMap, numColumns: facCols, numRows: facRows);
     TileMapFac vrtObstructionsTileMap = facBuilder.GenerateVrtObstructions(facTileMap, pathTileMap, horObstructionsTileMap, numColumns: facCols, numRows: facRows);
 
-
+    mapElementSideSize = 5f;
 
     FacMapBuilderDto dto = new FacMapBuilderDto()
     {
@@ -147,7 +150,7 @@ public class MapManager : MonoBehaviour
       Tooling = toolingTileMap,
       HorizontalObstructions = horObstructionsTileMap,
       VerticalObstructions = vrtObstructionsTileMap,
-      TileMapCellSize = 5f
+      TileMapCellSize = mapElementSideSize
     };
     for (int i = 0; i < facTileMap.Width; i++)
     {
@@ -157,19 +160,25 @@ public class MapManager : MonoBehaviour
       }
     }
 
+    LevelInfos.MapHeight = mapRows * mapElementSideSize;
+    LevelInfos.MapWidth = mapCols * mapElementSideSize;
+
   }
 
 
   private void GenerateHgh()
   {
-    
+
+    mapElementSideSize = 20f;
     for (int col = 0; col < mapCols; col++)
     {
       for (int row = 0; row < mapRows; row++)
       {
-        hghBuilder.BuildNode(col, row, 20, byte.MaxValue);
+        hghBuilder.BuildNode(col, row, mapElementSideSize, byte.MaxValue);
       }
     }
+    LevelInfos.MapHeight = mapRows * mapElementSideSize;
+    LevelInfos.MapWidth = mapCols * mapElementSideSize;
 
   }
 

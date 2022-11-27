@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace Assets.Scripts.BigPicture
 {
 
+  /// <summary>
+  /// Saving map infos??
+  /// </summary>
   [Serializable]
   public class MapData
   {

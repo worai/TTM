@@ -12,6 +12,8 @@ public static class LevelInfos
   public static int? Level { get; set; }
   public static bool? Fell { get; set; }
   public static bool StartingIndors { get; set; }
+  public static float MapWidth { get; set; }
+  public static float MapHeight { get; set; }
 
   //TODO time infos in here?
 
