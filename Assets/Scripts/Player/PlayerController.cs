@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
   private const string FALLING_ANIMATION = "PlayerFalling";
 
+  private string currentAnimationState;
+
   PlayerMovementInput pmi;
 
   private Vector3 _velocity;
@@ -77,6 +79,15 @@ public class PlayerController : MonoBehaviour
 
   }
 
+  void ChangeAnimationState(string newState)
+  {
+    if (currentAnimationState == newState) return;
+
+    animator.Play(newState);
+
+    currentAnimationState = newState;
+  }
+
   private void HandlePrecariousAnimationState()
   {
     if (Precarious && currentJumpHeight < 0.1f)
@@ -97,6 +108,7 @@ public class PlayerController : MonoBehaviour
 
 
   bool runningFallingCoroutine = false;
+
   private IEnumerator FallingCoroutine()
   {
     runningFallingCoroutine = true;
