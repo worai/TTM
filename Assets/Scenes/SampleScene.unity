@@ -2013,6 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70804c2d339f54e4398687f26021d1c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
   lowerBound: 100
   upperBound: 175
   effect: {fileID: 0}
@@ -3024,7 +3025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403754736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 5, z: 0}
+  m_LocalPosition: {x: -2.5, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1350437496}
@@ -9612,6 +9613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1203697795}
   - component: {fileID: 1203697796}
+  - component: {fileID: 1203697797}
   m_Layer: 0
   m_Name: HandgunGO
   m_TagString: Untagged
@@ -9645,12 +9647,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e228b9c7e184bb24796c066a2123520e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManager: {fileID: 0}
   reloadDuration: 1
   lowerBound: 25
   upperBound: 75
   effect: {fileID: 2026694164}
   iconSprite: {fileID: 21300000, guid: a8cc399aaf657474c8a78e03581197a1, type: 3}
   inGameSprite: {fileID: 21300000, guid: 57a90fa9b439a6b4eb8a25e6dbf0c656, type: 3}
+--- !u!114 &1203697797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203697794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f885454520c3a04eb12f90e7066155d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Fire
+    clip: {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: Ready
+    clip: {fileID: 8300000, guid: e0c70bed5c1a4443083a81de5648c7d5, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &1206027977
 GameObject:
   m_ObjectHideFlags: 0
@@ -12923,7 +12949,7 @@ LineRenderer:
   m_SortingOrder: 1
   m_Positions:
   - {x: -0.1, y: 0.1, z: 0}
-  - {x: -0.099999964, y: 0.90000004, z: 0}
+  - {x: -0.90000004, y: 0.1, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -14327,7 +14353,7 @@ LineRenderer:
   m_SortingOrder: 1
   m_Positions:
   - {x: 0.1, y: 0.1, z: 0}
-  - {x: 0.099999964, y: 0.90000004, z: 0}
+  - {x: 0.90000004, y: 0.1, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1

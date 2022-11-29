@@ -89,6 +89,7 @@ public class PlayerWeapon : MonoBehaviour
       Debug.Log("GUN IS NULL THO!");
       return;
     }
+    chosenWeapon.MakeReadyStarted();
     makeReadyStartedTime = Time.time;
   }
 
@@ -96,7 +97,8 @@ public class PlayerWeapon : MonoBehaviour
   {
     Debug.Log("Canceled");
     if (chosenWeapon == null) return;
-    chosenWeapon.MakeReady(Time.time - makeReadyStartedTime);
+    if (!chosenWeapon.MakeReady(Time.time - makeReadyStartedTime))
+      chosenWeapon.MakeReadyCancelled();
   }
 
 

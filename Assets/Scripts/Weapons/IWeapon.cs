@@ -26,6 +26,14 @@ public interface IWeapon
   /// </summary>
   bool Fire(Transform firePoint);
   void MakeEffect();
-  void MakeReady(float duration);
+  bool MakeReady(float duration);
+  /// <summary>
+  /// Currently only used for controll of sfx
+  /// </summary>
+  void MakeReadyStarted();
+  /// <summary>
+  /// Currently only used for controll of sfx
+  /// </summary>
+  void MakeReadyCancelled();
 
 }

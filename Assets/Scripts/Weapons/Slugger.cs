@@ -45,7 +45,18 @@ public class Slugger : AWeapon2, IWeapon
       return;
   }
 
-  public void MakeReady(float duration)
+  public void MakeReadyStarted()
+  {
+    Debug.Log("Slugger gets ready");
+  }
+
+  public void MakeReadyCancelled()
+  {
+    Debug.Log("Slugger goes quiet");
+  }
+
+
+  public bool MakeReady(float duration)
   {
     throw new System.NotImplementedException();
   }
@@ -55,5 +66,4 @@ public class Slugger : AWeapon2, IWeapon
   {
     return "Slugger";
   }
-
 }

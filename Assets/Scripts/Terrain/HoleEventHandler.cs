@@ -16,7 +16,7 @@ public class HoleEventHandler : MonoBehaviour
   private void Start()
   {
     nodeInfos = transform.parent.transform.parent.GetComponent<MapNodeState>();
-    Debug.Log("MapNodeState " + nodeInfos.ToString());
+    if(verbose) Debug.Log("MapNodeState " + nodeInfos.ToString());
 
     controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     //controller.onStartedBalancingCoords.AddListener(ResetFallTimerCoords);

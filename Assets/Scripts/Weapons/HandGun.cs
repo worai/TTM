@@ -13,12 +13,14 @@ public class HandGun : AWeapon1, IWeapon
   [SerializeField] private Sprite iconSprite;
   [SerializeField] private Sprite inGameSprite;
 
-  RaycastHit2D hit;
+
+  private RaycastHit2D hit;
 
 
   public bool Ready { get; private set ; }
   public Sprite IconSprite { get => iconSprite; }
   public Sprite InGameSprite => inGameSprite;
+
 
   public bool Fire(Transform firePoint)
   {
@@ -54,6 +56,8 @@ public class HandGun : AWeapon1, IWeapon
       data.TakeDamage(Random.Range(lowerBound, upperBound));
     }
 
+    soundManager.Play("Fire");
+
     Ready = false;
 
     return true;
@@ -72,7 +76,17 @@ public class HandGun : AWeapon1, IWeapon
     }
   }
 
-  public void MakeReady(float duration)
+  public void MakeReadyStarted()
+  {
+    soundManager.Play("Ready");
+  }
+
+  public void MakeReadyCancelled()
+  {
+    soundManager.Stop("Ready");
+  }
+
+  public bool MakeReady(float duration)
   {
     if (verboseMessages) Debug.Log("Trying to make handgun ready");
     if (!Ready && duration > reloadDuration)
@@ -81,6 +95,7 @@ public class HandGun : AWeapon1, IWeapon
       if (verboseMessages) Debug.Log("handgun is now ready");
       Ready = true;
     }
+    return Ready;
   }
 
   public override string ToString()

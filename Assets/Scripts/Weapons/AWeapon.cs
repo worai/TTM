@@ -8,5 +8,10 @@ using UnityEngine;
 /// </summary>
 public abstract class AWeapon : MonoBehaviour
 {
-
+  [HideInInspector]
+  public SFXManager soundManager;
+  private void Awake()
+  {
+    soundManager = GetComponent<SFXManager>();
+  }
 }
