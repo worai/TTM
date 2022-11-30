@@ -36,6 +36,19 @@ public class PlayerController : MonoBehaviour
   private float currentVertSpeed = 0f;
   private bool touchesGround = true;
 
+  private enum PlayerAnimationState
+  {
+    PlayerFalling,
+    PlayerBrace,
+    PlayerUnbrace,
+    PlayerIdleOrWalkPrecarious,
+    PlayerRunBalanced,
+    PlayerIdleBalance,
+    PlayerIdle,
+    PlayerWalk,
+    PlayerRun,
+  }
+
   private const string FALLING_ANIMATION = "PlayerFalling";
 
   private string currentAnimationState;
@@ -77,6 +90,42 @@ public class PlayerController : MonoBehaviour
 
     HandlePrecariousAnimationState();
 
+    HandleAnimationChanges();
+  }
+
+  private void HandleAnimationChanges()
+  {
+
+    if(Precarious)
+    {
+      if(!Balancing)
+        ChangeAnimationState(PlayerAnimationState.PlayerIdleOrWalkPrecarious.ToString());
+      else if(Balancing)
+      {
+        if(Velocity.magnitude > 0.1f)
+          ChangeAnimationState(PlayerAnimationState.PlayerRunBalanced.ToString());
+        else if (Velocity.magnitude < 0.1f)
+          ChangeAnimationState(PlayerAnimationState.PlayerIdleBalance.ToString());
+      }
+    }
+    else if (!Precarious)
+    {
+      if(Velocity.magnitude < 0.1f)
+      {
+        ChangeAnimationState(PlayerAnimationState.PlayerIdle.ToString());
+      }
+      else if (Velocity.magnitude < walkSpeed * 1.1f)
+      {
+        ChangeAnimationState(PlayerAnimationState.PlayerWalk.ToString());
+      }
+      else if (Velocity.magnitude < runSpeed * 1.1f)
+      {
+        ChangeAnimationState(PlayerAnimationState.PlayerRun.ToString());
+      }
+    }
+
+    //ChangeAnimationState(PlayerAnimationState.PlayerBrace.ToString());
+    //ChangeAnimationState(PlayerAnimationState.PlayerUnbrace.ToString());
   }
 
   void ChangeAnimationState(string newState)
@@ -125,7 +174,7 @@ public class PlayerController : MonoBehaviour
   private void HandleBracingAnimator()
   {
     if (Precarious) Bracing = false;
-    animator.SetBool("Bracing", Bracing);
+    //animator.SetBool("Bracing", Bracing);
   }
 
   private void Brace_started(InputAction.CallbackContext context)
@@ -150,7 +199,7 @@ public class PlayerController : MonoBehaviour
       Debug.Log("Balance started");
       Balancing = true;
       onStartedBalancing?.Invoke();
-      animator.SetBool("Balancing", true);
+      //animator.SetBool("Balancing", true);
     }
     else
     {
