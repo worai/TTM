@@ -12949,7 +12949,7 @@ LineRenderer:
   m_SortingOrder: 1
   m_Positions:
   - {x: -0.1, y: 0.1, z: 0}
-  - {x: -0.90000004, y: 0.1, z: 0}
+  - {x: -0.099999964, y: 0.90000004, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -14353,7 +14353,7 @@ LineRenderer:
   m_SortingOrder: 1
   m_Positions:
   - {x: 0.1, y: 0.1, z: 0}
-  - {x: 0.90000004, y: 0.1, z: 0}
+  - {x: 0.099999964, y: 0.90000004, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
