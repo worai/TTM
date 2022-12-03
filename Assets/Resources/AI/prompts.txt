@@ -1,0 +1,2 @@
+black man sitting on a chair, black and white, high contrast, creepy, from side
+Steps: 20, Sampler: Euler a, CFG scale: 7, Seed: 10, Size: 512x512, Model hash: 7460a6fa
