@@ -25,6 +25,14 @@ public class @UIInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Hints"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4378170-b6f4-4f6f-b4d9-d2b5c5f7a7cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +46,17 @@ public class @UIInput : IInputActionCollection, IDisposable
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c7684fc-4414-42f5-9c94-1fcc55c1ad53"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hints"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -47,6 +66,7 @@ public class @UIInput : IInputActionCollection, IDisposable
         // User
         m_User = asset.FindActionMap("User", throwIfNotFound: true);
         m_User_Escape = m_User.FindAction("Escape", throwIfNotFound: true);
+        m_User_Hints = m_User.FindAction("Hints", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -97,11 +117,13 @@ public class @UIInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_User;
     private IUserActions m_UserActionsCallbackInterface;
     private readonly InputAction m_User_Escape;
+    private readonly InputAction m_User_Hints;
     public struct UserActions
     {
         private @UIInput m_Wrapper;
         public UserActions(@UIInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Escape => m_Wrapper.m_User_Escape;
+        public InputAction @Hints => m_Wrapper.m_User_Hints;
         public InputActionMap Get() { return m_Wrapper.m_User; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -114,6 +136,9 @@ public class @UIInput : IInputActionCollection, IDisposable
                 @Escape.started -= m_Wrapper.m_UserActionsCallbackInterface.OnEscape;
                 @Escape.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnEscape;
                 @Escape.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnEscape;
+                @Hints.started -= m_Wrapper.m_UserActionsCallbackInterface.OnHints;
+                @Hints.performed -= m_Wrapper.m_UserActionsCallbackInterface.OnHints;
+                @Hints.canceled -= m_Wrapper.m_UserActionsCallbackInterface.OnHints;
             }
             m_Wrapper.m_UserActionsCallbackInterface = instance;
             if (instance != null)
@@ -121,6 +146,9 @@ public class @UIInput : IInputActionCollection, IDisposable
                 @Escape.started += instance.OnEscape;
                 @Escape.performed += instance.OnEscape;
                 @Escape.canceled += instance.OnEscape;
+                @Hints.started += instance.OnHints;
+                @Hints.performed += instance.OnHints;
+                @Hints.canceled += instance.OnHints;
             }
         }
     }
@@ -128,5 +156,6 @@ public class @UIInput : IInputActionCollection, IDisposable
     public interface IUserActions
     {
         void OnEscape(InputAction.CallbackContext context);
+        void OnHints(InputAction.CallbackContext context);
     }
 }
